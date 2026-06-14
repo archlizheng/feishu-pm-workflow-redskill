@@ -142,9 +142,16 @@ lark-cli config init
 lark-cli auth login
 ```
 
-## 如何导入 RedSkill 平台
+## 安装方式
 
-本仓库是 RedSkill 兼容版本：保留文件夹结构，但所有文件都是 `.md`，适合只能导入 `.md` / `.txt` 的平台。
+本仓库是 RedSkill 兼容版本：保留文件夹结构，但所有核心文件都是 `.md`，适合只能导入 `.md` / `.txt` 的平台。
+
+### 方式一：导入 RedSkill 平台
+
+1. 打开 GitHub 仓库：[https://github.com/archlizheng/feishu-pm-workflow-redskill](https://github.com/archlizheng/feishu-pm-workflow-redskill)
+2. 下载仓库 ZIP，或将仓库导入到 RedSkill 平台。
+3. 上传整个 `feishu-pm-workflow` 文件夹。
+4. 确认平台能够读取根目录下的 `SKILL.md` 和 `references/` 目录。
 
 目录结构：
 
@@ -152,6 +159,7 @@ lark-cli auth login
 feishu-pm-workflow/
 ├── README.md
 ├── SKILL.md
+├── LICENSE.md
 └── references/
     ├── archive-rules.md
     ├── lark-cli-commands.md
@@ -161,11 +169,68 @@ feishu-pm-workflow/
     └── workflows.md
 ```
 
-导入时上传整个 `feishu-pm-workflow` 文件夹。
+### 方式二：安装到 Codex / Agents 本地 Skill 目录
+
+如果你的 Agent 使用 `~/.agents/skills` 作为 Skill 目录，可以直接 clone：
+
+```bash
+mkdir -p ~/.agents/skills
+git clone https://github.com/archlizheng/feishu-pm-workflow-redskill.git ~/.agents/skills/feishu-pm-workflow
+```
+
+更新到最新版本：
+
+```bash
+cd ~/.agents/skills/feishu-pm-workflow
+git pull
+```
+
+### 方式三：安装到 Claude Code 本地 Skill 目录
+
+如果你在 Claude Code 中使用本地 Skill，可以 clone 到 `~/.claude/skills`：
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/archlizheng/feishu-pm-workflow-redskill.git ~/.claude/skills/feishu-pm-workflow
+```
+
+更新到最新版本：
+
+```bash
+cd ~/.claude/skills/feishu-pm-workflow
+git pull
+```
+
+### 安装后验证
+
+在 Agent 中输入类似指令：
+
+```text
+使用 feishu-pm-workflow，帮我为“AI 面试评估工具”初始化一个飞书 PM 工作区。
+```
+
+如果 Agent 能识别该 Skill，并在执行前检查 `lark-cli`、飞书登录状态和项目写入计划，说明安装成功。
+
+## 文件结构
+
+```text
+feishu-pm-workflow/
+├── README.md
+├── SKILL.md
+├── LICENSE.md
+└── references/
+    ├── archive-rules.md
+    ├── lark-cli-commands.md
+    ├── object-schemas.md
+    ├── prd-template.md
+    ├── whiteboard-briefs.md
+    └── workflows.md
+```
 
 ## 文件说明
 
 - `SKILL.md`：Skill 入口，定义触发条件、工作流、边界和交付规则。
+- `LICENSE.md`：MIT 开源协议。
 - `references/workflows.md`：初始化、归档、推进三种模式。
 - `references/object-schemas.md`：飞书文档和多维表格字段结构。
 - `references/lark-cli-commands.md`：创建文档、Base、表、记录更新的命令说明。
@@ -187,3 +252,7 @@ feishu-pm-workflow/
 当前版本：`1.0.0-redskill`
 
 该版本已经过真实飞书场景测试：可初始化项目工作区、创建 Base 和 5 张表、写入资料/需求/任务/风险记录，并更新项目总览。
+
+## 开源协议
+
+本项目基于 MIT License 开源。你可以自由使用、复制、修改、分发和二次开发，但需要保留原始版权声明和协议文本。详见 [LICENSE.md](LICENSE.md)。
